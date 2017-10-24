@@ -1,0 +1,25 @@
+- model_class = Flat
+.page-header
+  %h1=t '.title', :default => model_class.model_name.human.titleize
+
+%p
+  %strong= model_class.human_attribute_name(:agreement_amount) + ':'
+  %br
+  = @flat.agreement_amount
+%p
+  %strong= model_class.human_attribute_name(:date_of_booking) + ':'
+  %br
+  = @flat.date_of_booking
+%p
+  %strong= model_class.human_attribute_name(:base_price) + ':'
+  %br
+  = @flat.base_price
+%p
+  %strong= model_class.human_attribute_name(:area) + ':'
+  %br
+  = @flat.area
+
+
+= link_to t('.back', :default => t("helpers.links.back")), flats_path, :class => 'btn btn-default'
+= link_to t('.edit', :default => t("helpers.links.edit")), edit_flat_path(@flat), :class => 'btn btn-default'
+= link_to t('.destroy', :default => t("helpers.links.destroy")), flat_path(@flat), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'

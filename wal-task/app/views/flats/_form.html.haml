@@ -1,0 +1,25 @@
+= form_for @flat, html: { class: "form form-horizontal flat" } do |f|
+  .form-group
+    = f.label :agreement_amount, class: 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :agreement_amount, class: 'form-control'
+    = f.error_span(:agreement_amount)
+  .form-group
+    = f.label :date_of_booking, class: 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :date_of_booking, class: 'form-control datepicker', "data-provide": 'datepicker', "data-date-format": "yyyy-mm-dd"
+    = f.error_span(:date_of_booking)
+  .form-group
+    = f.label :base_price, class: 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :base_price, class: 'form-control'
+    = f.error_span(:base_price)
+  .form-group
+    = f.label :area, class: 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :area, class: 'form-control'
+    = f.error_span(:area)
+  .form-group
+    .col-lg-offset-2.col-lg-10
+      = f.submit nil,class: 'btn btn-primary'
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), flats_path, :class => 'btn btn-default'

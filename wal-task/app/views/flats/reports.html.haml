@@ -1,0 +1,37 @@
+.page-header
+  .btn-toolbar.pull-right
+    .btn-group
+    =form_tag({controller: "flats", action: "reports"}, method: "get", class: "form form-inline") do
+      .form-group
+        =text_field_tag :start_date, @start_date, class: "form-control datepicker", placeholder: "Start Date", "data-provide": 'datepicker', "data-date-format": "yyyy-mm-dd"
+      .form-group
+        =text_field_tag :end_date, @end_date, class: "form-control datepicker", placeholder: "End Date", "data-provide": 'datepicker', "data-date-format": "yyyy-mm-dd"
+      .form-group
+        =select_tag :report_type, options_for_select([ "Monthly", "Yearly" ], @report_type), class: "form-control"  
+      =submit_tag 'Fetch' , class: 'btn btn-primary'
+  %h1=t 'Reports'
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th= "S.No"
+      %th= "Year"
+      - if @report_type == "Monthly"
+        %th= "Month"
+      %th= "Flat Sales Amount"
+    %tbody
+    - if @reports.any? 
+      - @reports.each_with_index do |report, i|
+        %tr
+          %td= (i+1)
+          - if @report_type == "Monthly"
+            %td= report[0][1]
+            %td= Date::MONTHNAMES[report[0][0]]
+          - else
+            %td= report[0]
+          %td= number_to_currency(report[1], :unit => "Rs. ", :separator => ".", :delimiter => ",")
+    - else
+      %tr
+        %td{:colspan => 3}= "No data is available."
+
+= link_to 'Home', root_url, :class => 'btn btn-primary'

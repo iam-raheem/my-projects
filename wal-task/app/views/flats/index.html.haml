@@ -1,0 +1,30 @@
+- model_class = Flat
+.page-header
+  .btn-toolbar.pull-right
+    .btn-group
+      = link_to 'Reports', reports_flats_url, :class => 'btn btn-primary'
+  %h1=t '.title', :default => model_class.model_name.human.pluralize.titleize    
+%table.table.table-striped
+  %thead
+    %tr
+      %th= "S.No"
+      %th= model_class.human_attribute_name(:agreement_amount)
+      %th= model_class.human_attribute_name(:date_of_booking)
+      %th= model_class.human_attribute_name(:base_price)
+      %th= model_class.human_attribute_name(:area)
+      %th=t '.actions', :default => t("helpers.actions")
+  %tbody
+    - @flats.each_with_index do |flat, i|
+      %tr
+        %td= (i+1)
+        %td= number_to_currency(flat.agreement_amount, :unit => "Rs. ", :separator => ".", :delimiter => ",")
+        %td= flat.date_of_booking
+        %td= number_to_currency(flat.base_price, :unit => "Rs. ", :separator => ".", :delimiter => ",")
+        %td= number_to_currency(flat.area, :unit => "Sft. ", :delimiter => ",", precision: 0)
+
+        %td
+          = link_to t('.show', :default => t("helpers.links.show")), flat_path(flat), :class => 'btn btn-default btn-xs'
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_flat_path(flat), :class => 'btn btn-default btn-xs'
+          = link_to t('.destroy', :default => t("helpers.links.destroy")), flat_path(flat), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
+
+= link_to t('.new', :default => t("helpers.links.new")), new_flat_path, :class => 'btn btn-primary'
